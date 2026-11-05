@@ -6,7 +6,7 @@ on:
   # A published GitHub release also publishes the image as `<version>`, `<major>.<minor>` and `latest`.
   release:
     types: [published]
-
+  workflow_dispatch: {}
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'push' }}
