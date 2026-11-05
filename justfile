@@ -37,7 +37,7 @@ dev:
     server_pid=$!
     (cd apps/web && VITE_API_PROXY="http://127.0.0.1:${api_port}" bun run dev -- --host 127.0.0.1 --port "${web_port}" --strictPort) &
     web_pid=$!
-    wait -n "$server_pid" "$web_pid"
+    wait $server_pid $web_pid
 
 # Metro for the Expo app (apps/mobile). The phone loads it from ORBIT_MOBILE_HOST (for example a Tailscale name).
 mobile:
