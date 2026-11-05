@@ -37,7 +37,8 @@ dev:
     server_pid=$!
     (cd apps/web && VITE_API_PROXY="http://127.0.0.1:${api_port}" bun run dev -- --host 127.0.0.1 --port "${web_port}" --strictPort) &
     web_pid=$!
-    wait -n "$server_pid" "$web_pid"
+    # macOS bash 3.2 has no `wait -n`; poll until either child exits.
+    while kill -0 "$server_pid" 2>/dev/null && kill -0 "$web_pid" 2>/dev/null; do sleep 1; done
 
 # Metro for the Expo app (apps/mobile). The phone loads it from ORBIT_MOBILE_HOST (for example a Tailscale name).
 mobile:
